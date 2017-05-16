@@ -21,8 +21,8 @@ public class ViewUtils {
      * 设置为findViewById--查找对应组件的id
      **/
 
-    private static String FIND_VIEW_BY_ID = "findViewById";
-    private static String SET_CONTENT_VIEW = "setContentView";
+    public static String FIND_VIEW_BY_ID = "findViewById";
+    public static String SET_CONTENT_VIEW = "setContentView";
 
     /**
      * 动态传入activity对象

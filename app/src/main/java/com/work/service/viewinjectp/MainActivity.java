@@ -46,11 +46,11 @@ public class MainActivity extends Activity {
         ViewUtils.injectOnClick(this);
 
 
-
     }
 
+    /**此处方法不能设置为private，否则会crash，找不到方法**/
     @onClickInject({R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6})
-    private void initClick(View view) {
+    public void initClick(View view) {
         switch (view.getId()) {
             case R.id.button1:
                 Toast.makeText(MainActivity.this, "button1", Toast.LENGTH_SHORT).show();
