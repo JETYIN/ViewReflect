@@ -27,8 +27,9 @@ public class ViewUtils {
     /**
      * 动态传入activity对象
      **/
-    public static void injectView(Activity activity) {
-
+    public static void inject(Activity activity) {
+/**尝试先注解1**/
+        injectContentView(activity);
         //动态获取class
         Class cla = activity.getClass();
         //获取到class中的所有字段
@@ -63,6 +64,8 @@ public class ViewUtils {
                 }
             }
         }
+        /**click**/
+        injectOnClick(activity);
     }
 
     /**

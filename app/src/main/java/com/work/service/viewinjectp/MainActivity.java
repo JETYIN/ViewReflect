@@ -1,6 +1,7 @@
 package com.work.service.viewinjectp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import com.work.service.viewinjectp.com.work.service.data.ContentViewInject;
 import com.work.service.viewinjectp.com.work.service.data.ViewInject;
 import com.work.service.viewinjectp.com.work.service.data.ViewUtils;
 import com.work.service.viewinjectp.com.work.service.data.onClickInject;
+import com.work.service.viewinjectp.eventbus.AppMainActivity;
 
 /**
  * contentView的注解
@@ -40,19 +42,27 @@ public class MainActivity extends Activity {
         //setContentView(R.layout.activity_main);通过注解实现
         /**将当前activity对象传入到动态方法中，进行遍历获取文件声明**/
         //contentview注解
-        ViewUtils.injectContentView(this);
         //view注解
-        ViewUtils.injectView(this);
-        ViewUtils.injectOnClick(this);
+        ViewUtils.inject(this);
 
+        //注册eventBus
 
     }
 
-    /**此处方法不能设置为private，否则会crash，找不到方法**/
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    /**
+     * 此处方法不能设置为private，否则会crash，找不到方法
+     **/
     @onClickInject({R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6})
     public void initClick(View view) {
         switch (view.getId()) {
             case R.id.button1:
+                startActivity(new Intent(this, AppMainActivity.class));
                 Toast.makeText(MainActivity.this, "button1", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.button2:
@@ -74,5 +84,20 @@ public class MainActivity extends Activity {
         }
 
 
+    }
+
+    private void getStactTrace() {
+        /**日志管理输出时**/
+
+        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[4];
+
+    }
+
+    private void init() {
+        Intent intent = new Intent();
+        //intent 可通过putExtra传递实现了序列化的对象
+        //intent.putExtra("key",Parcelable)
+        //获取对象上一个intent传递过来的实现序列化的对象
+        getIntent().getParcelableExtra("key");
     }
 }

@@ -3,8 +3,6 @@
     package="com.work.service.viewinjectp">
 
 
-
-
     <!-- sdk permissio begin -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -34,6 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".eventbus.AppMainActivity" />
+        <activity android:name=".eventbus.LoginActivity" />
+        <activity android:name=".eventbus.RigsterActivity" />
     </application>
 
 </manifest>
