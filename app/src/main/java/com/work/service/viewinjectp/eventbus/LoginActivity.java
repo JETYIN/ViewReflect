@@ -46,11 +46,13 @@ public class LoginActivity extends Activity {
         EventBus.getDefault().unregister(this);
     }
 
-    /**根据消息发布者发布的信息类型接收消息数据**/
+    /**
+     * 根据消息发布者发布的信息类型接收消息数据
+     **/
     //消息处理
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleEventMessage(UserInfo userInfo) {
-        Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Login-" + userInfo.getUserName(), Toast.LENGTH_SHORT).show();
 
 
     }

@@ -12,6 +12,7 @@ import com.work.service.viewinjectp.com.work.service.data.ViewInject;
 import com.work.service.viewinjectp.com.work.service.data.ViewUtils;
 import com.work.service.viewinjectp.com.work.service.data.onClickInject;
 import com.work.service.viewinjectp.eventbus.message.LoginMessage;
+import com.work.service.viewinjectp.eventbus.message.UserInfo;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,12 +34,17 @@ public class RigsterActivity extends Activity {
 
     }
 
+    /**事件发送依据接收对象的不同自动发布消息**/
     @onClickInject({R.id.commit_bt})
     public void initClick(View view) {
         //点击按钮进行发送消息
         LoginMessage loginMessage = new LoginMessage(getEtText(userET));
         /**注册界面发布事件**/
         EventBus.getDefault().post(loginMessage);
+        /**发送userinfo**/
+        UserInfo userInfo = new UserInfo(getEtText(passET));
+        EventBus.getDefault().post(userInfo);
+
         startActivity(new Intent(this, AppMainActivity.class));
         this.finish();
 
