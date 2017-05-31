@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.work.service.viewinjectp.com.work.service.data.ContentViewInject;
+import com.work.service.viewinjectp.com.work.service.data.InjectObject;
+import com.work.service.viewinjectp.com.work.service.data.Student;
 import com.work.service.viewinjectp.com.work.service.data.ViewInject;
 import com.work.service.viewinjectp.com.work.service.data.ViewUtils;
 import com.work.service.viewinjectp.com.work.service.data.onClickInject;
@@ -45,13 +47,21 @@ public class MainActivity extends Activity {
         //view注解
         ViewUtils.inject(this);
 
-        //注册eventBus
+        /**模拟分发数据**/
+        ViewUtils.getFlectObject(this);
+    }
+
+    @InjectObject
+    private void initObject(Object obj) {
+        Student student = (Student) obj;
+
+        Toast.makeText(this, "studentname是" + student.getName() + "studentAge是" + student.getAge(), Toast.LENGTH_SHORT).show();
 
     }
 
-
     @Override
     protected void onDestroy() {
+
         super.onDestroy();
     }
 

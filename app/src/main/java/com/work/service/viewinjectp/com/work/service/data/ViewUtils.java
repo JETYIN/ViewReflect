@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,6 +22,32 @@ public class ViewUtils {
 
     public static String FIND_VIEW_BY_ID = "findViewById";
     public static String SET_CONTENT_VIEW = "setContentView";
+
+    /**模拟测试数据反射分发**/
+    public static void getFlectObject(Activity activity) {
+
+        Class cla = activity.getClass();
+        Method[] methods = cla.getDeclaredMethods();
+        for (Method mothodItem : methods) {
+            if (mothodItem.isAnnotationPresent(InjectObject.class)) {
+
+
+
+                mothodItem.setAccessible(true);
+                try {
+                    mothodItem.invoke(activity, new Student("dylan", 18));
+
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+    }
+
 
     /**
      * 动态传入activity对象
@@ -163,4 +188,6 @@ public class ViewUtils {
             }
         }
     }
+
+
 }
