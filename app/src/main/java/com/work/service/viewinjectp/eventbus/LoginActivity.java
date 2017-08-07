@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.work.service.viewinjectp.R;
 import com.work.service.viewinjectp.com.work.service.data.ContentViewInject;
+import com.work.service.viewinjectp.com.work.service.data.InjectObject;
+import com.work.service.viewinjectp.com.work.service.data.Student;
 import com.work.service.viewinjectp.com.work.service.data.ViewInject;
 import com.work.service.viewinjectp.com.work.service.data.ViewUtils;
 import com.work.service.viewinjectp.com.work.service.data.onClickInject;
@@ -38,6 +40,7 @@ public class LoginActivity extends Activity {
         ViewUtils.inject(this);
 
         EventBus.getDefault().register(this);
+        ViewUtils.register(this);//注册事件分发
     }
 
     @Override
@@ -62,5 +65,13 @@ public class LoginActivity extends Activity {
     public void initClick(View view) {
 
         startActivity(new Intent(this, RigsterActivity.class));
+    }
+
+    @InjectObject
+    private void initObject(Object obj) {
+        Student student = (Student) obj;
+
+        Toast.makeText(this, "studentname是" + student.getName() + "studentAge是" + student.getAge(), Toast.LENGTH_SHORT).show();
+
     }
 }

@@ -1,6 +1,7 @@
 package com.work.service.viewinjectp.com.work.service.data;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
@@ -22,20 +23,22 @@ public class ViewUtils {
 
     public static String FIND_VIEW_BY_ID = "findViewById";
     public static String SET_CONTENT_VIEW = "setContentView";
+    private static Object object;
 
-    /**模拟测试数据反射分发**/
-    public static void getFlectObject(Activity activity) {
+    /**
+     * @params3.模拟测试数据反射分发,通过反射分发事件源
+     **/
+    public static void getFlectObject(Activity context, Object obj) {
 
-        Class cla = activity.getClass();
-        Method[] methods = cla.getDeclaredMethods();
+        Class cla = context.getClass();
+        Method[] methods = cla.getDeclaredMethods();//该声明注册的方法
         for (Method mothodItem : methods) {
             if (mothodItem.isAnnotationPresent(InjectObject.class)) {
 
 
-
                 mothodItem.setAccessible(true);
                 try {
-                    mothodItem.invoke(activity, new Student("dylan", 18));
+                    mothodItem.invoke(context, obj);//模拟分发一个对象给注解对象
 
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -48,6 +51,28 @@ public class ViewUtils {
 
     }
 
+    /**
+     * @params2.注册成订阅者，通过反射分发事件源
+     **/
+
+    public static void register(Activity context) {
+        if (object == null) {
+            Log.e("dylan", "分发数据为空");
+        }
+
+        getFlectObject(context, object);
+    }
+
+    /**
+     * @params1.此处模拟数据分发,此demo不为完善，事件源开始分发，此事件源将在此赋值保存，
+     **/
+    public static void dipatcher(Activity act, Object obj) {
+        if (obj == null) {
+            Log.e("dylan", "分发数据为空");
+        }
+        object = obj;
+        getFlectObject(act, object);
+    }
 
     /**
      * 动态传入activity对象

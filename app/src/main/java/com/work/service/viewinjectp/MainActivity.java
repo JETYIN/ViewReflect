@@ -3,6 +3,7 @@ package com.work.service.viewinjectp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -47,16 +48,6 @@ public class MainActivity extends Activity {
         //view注解
         ViewUtils.inject(this);
 
-        /**模拟分发数据**/
-        ViewUtils.getFlectObject(this);
-    }
-
-    @InjectObject
-    private void initObject(Object obj) {
-        Student student = (Student) obj;
-
-        Toast.makeText(this, "studentname是" + student.getName() + "studentAge是" + student.getAge(), Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -76,6 +67,9 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this, "button1", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.button2:
+                /**模拟分发数据**/
+
+                ViewUtils.dipatcher(MainActivity.this, new Student("dylan", 18));//在此发布信息
                 Toast.makeText(MainActivity.this, "button2", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.button3:
@@ -110,4 +104,14 @@ public class MainActivity extends Activity {
         //获取对象上一个intent传递过来的实现序列化的对象
         getIntent().getParcelableExtra("key");
     }
+
+    @InjectObject
+    private void initObject(Object obj) {
+        Log.e("dylan", "initObject");
+        Student student = (Student) obj;
+
+        Toast.makeText(this, "studentname是" + student.getName() + "studentAge是" + student.getAge(), Toast.LENGTH_SHORT).show();
+
+    }
+
 }

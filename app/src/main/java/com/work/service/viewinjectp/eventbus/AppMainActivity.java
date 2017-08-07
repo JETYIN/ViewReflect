@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.work.service.viewinjectp.R;
 import com.work.service.viewinjectp.com.work.service.data.ContentViewInject;
+import com.work.service.viewinjectp.com.work.service.data.InjectObject;
+import com.work.service.viewinjectp.com.work.service.data.Student;
 import com.work.service.viewinjectp.com.work.service.data.ViewInject;
 import com.work.service.viewinjectp.com.work.service.data.ViewUtils;
 import com.work.service.viewinjectp.com.work.service.data.onClickInject;
@@ -44,6 +46,7 @@ public class AppMainActivity extends Activity {
         /**1.当前activity绑定eventBus**/
         //在主界面注册eventBus--绑定了当前activity
         EventBus.getDefault().register(this);
+        ViewUtils.register(this);//注册事件分发
     }
 
     //点击事件注解--只能为public
@@ -76,5 +79,13 @@ public class AppMainActivity extends Activity {
         //注销eventBus
         /**2.注销eventBus**/
         EventBus.getDefault().unregister(this);
+    }
+
+    @InjectObject
+    private void initObject(Object obj) {
+        Student student = (Student) obj;
+
+        Toast.makeText(this, "studentname是" + student.getName() + "studentAge是" + student.getAge(), Toast.LENGTH_SHORT).show();
+
     }
 }
